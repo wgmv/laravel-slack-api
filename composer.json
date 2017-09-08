@@ -23,5 +23,6 @@
             "src/Vluzrmos/SlackApi/helpers.php"
         ]
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
