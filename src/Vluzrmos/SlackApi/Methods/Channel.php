@@ -214,7 +214,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function setTopic($channel, $topic)
     {
-        return $this->method('setPurpose', compact($channel, $topic));
+        return $this->method('setTopic', compact($channel, $topic));
     }
 
     /**
