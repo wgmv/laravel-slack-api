@@ -17,6 +17,7 @@ class ChannelTest extends TestCase
 	protected $channel;
 	protected $api;
 	protected $cache;
+	protected $methodGroup = 'users.';
 
 	public function setUp()
 	{
@@ -33,7 +34,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_archive() {
-		$method = "channels.archive";
+		$method = $this->methodGroup.".archive";
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
@@ -47,7 +48,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_create() {
-		$method = "channels.create";
+		$method = $this->methodGroup.".create";
 		$name = 'channel_name';
 
 		$this->api->shouldReceive('post')->with($method, compact('name'))->andReturn('api called '.$method);
@@ -62,7 +63,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_history() {
-		$method = "channels.history";
+		$method = $this->methodGroup.".history";
 		$channel = 'channel_id';
 		$count = 100;
 		$latest = null;
@@ -83,7 +84,7 @@ class ChannelTest extends TestCase
 	 * @test
 	 */
 	function channel_info() {
-		$method = "channels.info";
+		$method = $this->methodGroup.".info";
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
@@ -98,7 +99,7 @@ class ChannelTest extends TestCase
 	 * @test
 	 */
 	function channel_invite() {
-		$method = "channels.invite";
+		$method = $this->methodGroup.".invite";
 		$channel = 'channel_id';
 		$user = 'user_id';
 
@@ -114,7 +115,7 @@ class ChannelTest extends TestCase
 	 * @test
 	 */
 	function channel_join() {
-		$method = "channels.join";
+		$method = $this->methodGroup.".join";
 		$name = 'channel_name';
 
 		$this->api->shouldReceive('post')->with($method, compact('name'))->andReturn('api called '.$method);
@@ -129,7 +130,7 @@ class ChannelTest extends TestCase
 	 * @test
 	 */
 	function channel_kick() {
-		$method = "channels.kick";
+		$method = $this->methodGroup.".kick";
 		$channel = 'channel_id';
 		$user = 'user_id';
 
@@ -146,7 +147,7 @@ class ChannelTest extends TestCase
 	 * @test
 	 */
 	function channel_leave() {
-		$method = "channels.leave";
+		$method = $this->methodGroup.".leave";
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
@@ -161,7 +162,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_list() {
-		$method = "channels.list";
+		$method = $this->methodGroup.".list";
 		$cursor = "";
 		$exclude_archived = true;
 		$exclude_members = true;
@@ -178,7 +179,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_mark() {
-		$method = "channels.mark";
+		$method = $this->methodGroup.".mark";
 		$channel = 'channel_id';
 		$ts = 1505160576;
 
@@ -194,7 +195,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_rename() {
-		$method = "channels.rename";
+		$method = $this->methodGroup.".rename";
 		$channel = 'channel_id';
 		$name = 'new_name';
 
@@ -210,7 +211,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_set_purpose() {
-		$method = "channels.setPurpose";
+		$method = $this->methodGroup.".setPurpose";
 		$channel = 'channel_id';
 		$purpose = 'purpose';
 
@@ -226,7 +227,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_set_topic() {
-		$method = "channels.setTopic";
+		$method = $this->methodGroup.".setTopic";
 		$channel = 'channel_id';
 		$topic = 'topic';
 
@@ -242,7 +243,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_unarchive() {
-		$method = "channels.unarchive";
+		$method = $this->methodGroup.".unarchive";
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
@@ -257,7 +258,7 @@ class ChannelTest extends TestCase
     * @test
     */
     function channel_replies() {
-		$method = "channels.replies";
+		$method = $this->methodGroup.".replies";
 		$channel = 'channel_id';
 		$thread_ts = 1505160576;
 
