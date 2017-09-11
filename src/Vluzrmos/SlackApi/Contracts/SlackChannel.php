@@ -13,8 +13,7 @@ interface SlackChannel
     public function join($name);
     public function kick($channel, $user);
     public function leave($channel);
-    public function all($exclude_archived);
-    public function lists($exclude_archived);
+    public function lists($cursor, $exclude_archived, $exclude_members, $limit);
     public function mark($channel, $ts);
     public function rename($channel, $name);
     public function setPurpose($channel, $purpose);

@@ -160,16 +160,16 @@ class ChannelTest extends TestCase
     * Test all
     * @test
     */
-    function channel_all() {
+    function channel_list() {
 		$method = "channels.list";
-		$exclude_archived = 1;
+		$cursor = "";
+		$exclude_archived = true;
+		$exclude_members = true;
+		$limit = 20;
 
-		$this->api->shouldReceive('post')->with($method, compact('exclude_archived'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('cursor', 'exclude_archived', 'exclude_members', 'limit'))->andReturn('api called '.$method);
 
-		$response = $this->channel->all($exclude_archived);
-    	$this->assertEquals('api called '.$method, $response);
-
-		$response = $this->channel->lists($exclude_archived);
+		$response = $this->channel->lists($cursor, $exclude_archived, $exclude_members, $limit);
     	$this->assertEquals('api called '.$method, $response);
     }
 

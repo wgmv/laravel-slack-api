@@ -133,24 +133,9 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function all($exclude_archived = 1)
+    public function lists($cursor = "", $exclude_archived = true, $exclude_members = true, $limit = 20)
     {
-        return $this->method('list', compact('exclude_archived'));
-    }
-
-    /**
-     * This method returns a list of all channels in the team. This includes channels the caller is in, channels they are not currently in, and archived channels.
-     * The number of (non-deactivated) members in each channel is also returned.
-     *
-     * @see https://api.slack.com/methods/channels.list
-     *
-     * @param int $exclude_archived Don't return archived channels.
-     *
-     * @return array
-     */
-    public function lists($exclude_archived = 1)
-    {
-        return $this->all($exclude_archived);
+		return $this->method('list', compact('cursor', 'exclude_archived', 'exclude_members', 'limit'));
     }
 
     /**
@@ -186,6 +171,21 @@ class Channel extends SlackMethod implements SlackChannel
     {
         return $this->method('rename', compact('channel', 'name'));
     }
+
+	/**
+	 * This method returns an entire thread (a message plus all the messages in reply to it).
+	 *
+	 * @see https://api.slack.com/methods/channels.replies
+	 *
+	 * @param string $channel Channel to fetch thread from
+	 * @param string|int $thread_ts Unique identifier of a thread's parent message
+	 *
+	 * @return array
+	 */
+	public function replies($channel, $thread_ts)
+	{
+		return $this->method('replies', compact('channel', 'thread_ts'));
+	}
 
     /**
      * This method is used to change the purpose of a channel. The calling user must be a member of the channel.
@@ -231,18 +231,4 @@ class Channel extends SlackMethod implements SlackChannel
         return $this->method('unarchive', compact('channel'));
     }
 
-    /**
-     * This method returns an entire thread (a message plus all the messages in reply to it).
-     *
-     * @see https://api.slack.com/methods/channels.replies
-     *
-     * @param string $channel Channel to fetch thread from
-     * @param string|int $thread_ts Unique identifier of a thread's parent message
-     *
-     * @return array
-     */
-    public function replies($channel, $thread_ts)
-    {
-        return $this->method('replies', compact('channel', 'thread_ts'));
-    }
 }
