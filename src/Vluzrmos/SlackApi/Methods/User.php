@@ -40,19 +40,9 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function lists()
+    public function list()
     {
         return $this->method('list');
-    }
-
-    /**
-     * Alias to lists.
-     *
-     * @return array
-     */
-    public function all()
-    {
-        return $this->lists();
     }
 
     /**
@@ -94,7 +84,7 @@ class User extends SlackMethod implements SlackUser
         $users = $this->cacheGet('list');
 
         if (! $users || $force) {
-            $users = $this->cachePut('list', $this->lists(), $cacheMinutes);
+            $users = $this->cachePut('list', $this->list(), $cacheMinutes);
         }
 
         if (! is_array($nicks)) {
