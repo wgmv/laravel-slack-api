@@ -17,7 +17,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function archive($channel)
     {
-        return $this->method('archive', ['channel' => $channel]);
+        return $this->method('archive', compact('channel'));
     }
 
     /**
@@ -29,7 +29,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function create($name)
     {
-        return $this->method('create', ['name' => $name]);
+        return $this->method('create', compact('name'));
     }
 
     /**
@@ -62,7 +62,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function info($channel)
     {
-        return $this->method('info', ['channel' => $channel]);
+        return $this->method('info', compact('channel'));
     }
 
     /**
@@ -91,7 +91,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function join($name)
     {
-        return $this->method('join', ['name' => $name]);
+        return $this->method('join', compact('name'));
     }
 
     /**
@@ -120,7 +120,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function leave($channel)
     {
-        return $this->method('leave', ['channel' => $channel]);
+        return $this->method('leave', compact('channel'));
     }
 
     /**
@@ -165,7 +165,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function mark($channel, $ts)
     {
-        return $this->method('mark', compact($channel, $ts));
+        return $this->method('mark', compact('channel', 'ts'));
     }
 
     /**
@@ -184,7 +184,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function rename($channel, $name)
     {
-        return $this->method('rename', compact($channel, $name));
+        return $this->method('rename', compact('channel', 'name'));
     }
 
     /**
@@ -199,7 +199,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function setPurpose($channel, $purpose)
     {
-        return $this->method('setPurpose', compact($channel, $purpose));
+        return $this->method('setPurpose', compact('channel', 'purpose'));
     }
 
     /**
@@ -214,7 +214,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function setTopic($channel, $topic)
     {
-        return $this->method('setTopic', compact($channel, $topic));
+        return $this->method('setTopic', compact('channel', 'topic'));
     }
 
     /**
@@ -228,6 +228,21 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function unarchive($channel)
     {
-        return $this->method('unarchive', compact($channel));
+        return $this->method('unarchive', compact('channel'));
+    }
+
+    /**
+     * This method returns an entire thread (a message plus all the messages in reply to it).
+     *
+     * @see https://api.slack.com/methods/channels.replies
+     *
+     * @param string $channel Channel to fetch thread from
+     * @param string|int $thread_ts Unique identifier of a thread's parent message
+     *
+     * @return array
+     */
+    public function replies($channel, $thread_ts)
+    {
+        return $this->method('replies', compact('channel', 'thread_ts'));
     }
 }

@@ -36,7 +36,7 @@ class ChannelTest extends TestCase
 		$method = "channels.archive";
 		$channel = 'channel_id';
 
-		$this->api->shouldReceive('post')->with($method, ['channel' => $channel])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
 
 		$response = $this->channel->archive($channel);
     	$this->assertEquals('api called '.$method, $response);
@@ -50,7 +50,7 @@ class ChannelTest extends TestCase
 		$method = "channels.create";
 		$name = 'channel_name';
 
-		$this->api->shouldReceive('post')->with($method, ['name' => $name])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('name'))->andReturn('api called '.$method);
 
 		$response = $this->channel->create($name);
 
@@ -70,7 +70,7 @@ class ChannelTest extends TestCase
 		$inclusive = 1;
 
 		$this->api->shouldReceive('post')
-			->with($method, ['channel' => $channel, 'count' => $count, 'latest' => $latest, 'oldest' => $oldest, 'inclusive' => $inclusive])
+			->with($method, compact('channel', 'count', 'latest', 'oldest', 'inclusive'))
 			->andReturn('api called '.$method);
 
 		$response = $this->channel->history($channel);
@@ -86,7 +86,7 @@ class ChannelTest extends TestCase
 		$method = "channels.info";
 		$channel = 'channel_id';
 
-		$this->api->shouldReceive('post')->with($method, ['channel' => $channel])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
 
 		$response = $this->channel->info($channel);
 
@@ -102,7 +102,7 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 		$user = 'user_id';
 
-		$this->api->shouldReceive('post')->with($method, ['channel' => $channel, 'user' => $user])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'user'))->andReturn('api called '.$method);
 
 		$response = $this->channel->invite($channel, $user);
 
@@ -117,7 +117,7 @@ class ChannelTest extends TestCase
 		$method = "channels.join";
 		$name = 'channel_name';
 
-		$this->api->shouldReceive('post')->with($method, ['name' => $name])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('name'))->andReturn('api called '.$method);
 
 		$response = $this->channel->join($name);
 
@@ -164,7 +164,7 @@ class ChannelTest extends TestCase
 		$method = "channels.list";
 		$exclude_archived = 1;
 
-		$this->api->shouldReceive('post')->with($method, ['exclude_archived'=> $exclude_archived])->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('exclude_archived'))->andReturn('api called '.$method);
 
 		$response = $this->channel->all($exclude_archived);
     	$this->assertEquals('api called '.$method, $response);
@@ -182,7 +182,7 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 		$ts = 1505160576;
 
-		$this->api->shouldReceive('post')->with($method, compact($channel, $ts))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'ts'))->andReturn('api called '.$method);
 
 		$response = $this->channel->mark($channel, $ts);
     	$this->assertEquals('api called '.$method, $response);
@@ -198,7 +198,7 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 		$name = 'new_name';
 
-		$this->api->shouldReceive('post')->with($method, compact($channel, $name))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'name'))->andReturn('api called '.$method);
 
 		$response = $this->channel->rename($channel, $name);
     	$this->assertEquals('api called '.$method, $response);
@@ -214,7 +214,7 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 		$purpose = 'purpose';
 
-		$this->api->shouldReceive('post')->with($method, compact($channel, $purpose))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'purpose'))->andReturn('api called '.$method);
 
 		$response = $this->channel->setPurpose($channel, $purpose);
     	$this->assertEquals('api called '.$method, $response);
@@ -230,7 +230,7 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 		$topic = 'topic';
 
-		$this->api->shouldReceive('post')->with($method, compact($channel, $topic))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'topic'))->andReturn('api called '.$method);
 
 		$response = $this->channel->setTopic($channel, $topic);
     	$this->assertEquals('api called '.$method, $response);
@@ -245,9 +245,25 @@ class ChannelTest extends TestCase
 		$method = "channels.unarchive";
 		$channel = 'channel_id';
 
-		$this->api->shouldReceive('post')->with($method, compact($channel))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
 
 		$response = $this->channel->unarchive($channel);
+    	$this->assertEquals('api called '.$method, $response);
+
+    }
+
+    /**
+    * Test replies
+    * @test
+    */
+    function channel_replies() {
+		$method = "channels.replies";
+		$channel = 'channel_id';
+		$thread_ts = 1505160576;
+
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'thread_ts'))->andReturn('api called '.$method);
+
+		$response = $this->channel->replies($channel, $thread_ts);
     	$this->assertEquals('api called '.$method, $response);
 
     }
