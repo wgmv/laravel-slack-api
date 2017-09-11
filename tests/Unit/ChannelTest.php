@@ -17,7 +17,7 @@ class ChannelTest extends TestCase
 	protected $channel;
 	protected $api;
 	protected $cache;
-	protected $methodGroup = 'users.';
+	protected $methodGroup = 'channels';
 
 	public function setUp()
 	{
