@@ -44,7 +44,7 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function list()
+    public function lists()
     {
         return $this->method('list');
     }

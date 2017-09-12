@@ -6,7 +6,7 @@ interface SlackUser
 {
     public function getPresence($user);
     public function info($user);
-    public function list();
+    public function lists();
     public function setActive();
     public function setPresence($presence);
 }
