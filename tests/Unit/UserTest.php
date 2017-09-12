@@ -32,28 +32,35 @@ class UserTest extends TestCase
     */
     function user_getPresence() {
 		$method = $this->methodGroup.".getPresence";
-		$user = 'user_id';
+		$user = '';
+
+		$fake_response = new \stdClass();
+		$fake_response->members = [];
 
 		$this->api->shouldReceive('post')->with($method, compact('user'))->andReturn('api called '.$method);
+		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($fake_response);
 
 		$response = $this->user->getPresence($user);
     	$this->assertEquals('api called '.$method, $response);
     }
-//
-//    /**
-//    * Test info
-//    * @test
-//    */
-//    function user_info() {
-//		$method = $this->methodGroup.".info";
-//		$user = 'user_id';
-//
-//		$this->api->shouldReceive('post')->with($method, compact('user'))->andReturn('api called '.$method);
-//		$this->cache->shouldReceive('get')->with('__vlz_slackc_list', NULL)->andReturn(['asdf']);
-//
-//		$response = $this->user->info($user);
-//    	$this->assertEquals('api called '.$method, $response);
-//    }
+
+    /**
+    * Test info
+    * @test
+    */
+    function user_info() {
+		$method = $this->methodGroup.".info";
+		$user = '';
+
+		$fake_response = new \stdClass();
+		$fake_response->members = [];
+
+		$this->api->shouldReceive('post')->with($method, compact('user'))->once()->andReturn('api called '.$method);
+		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($fake_response);
+
+		$response = $this->user->info($user);
+    	$this->assertEquals('api called '.$method, $response);
+    }
 
     /**
     * Test list

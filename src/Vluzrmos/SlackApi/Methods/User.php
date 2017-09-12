@@ -3,9 +3,11 @@
 namespace Vluzrmos\SlackApi\Methods;
 
 use Vluzrmos\SlackApi\Contracts\SlackUser;
+use Vluzrmos\SlackApi\Traits\Userinfo;
 
 class User extends SlackMethod implements SlackUser
 {
+	use Userinfo;
     protected $methodsGroup = 'users.';
 
     /**
@@ -16,8 +18,10 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function getPresence($user)
+    public function getPresence($identifier)
     {
+		$user = $this->getUserId($identifier);
+
         return $this->method('getPresence', compact('user'));
     }
 
@@ -28,11 +32,11 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function info($user)
+    public function info($identifier)
     {
-        $user = $this->getUsersIDsByNicks($user);
+        $user = $this->getUserId($identifier);
 
-        return $this->method('info', ['user' => isset($user[0]) ? $user[0]: null]);
+        return $this->method('info', compact('user'));
     }
 
     /**
@@ -69,67 +73,4 @@ class User extends SlackMethod implements SlackUser
         return $this->method('setPresence', compact('presence'));
     }
 
-    /**
-     * Get an array of users id's by nicks.
-     *
-     * @param string|array $nicks
-     * @param bool         $force force to reload the users list
-     *
-     * @param int          $cacheMinutes Minutes or a Date to cache the results, default 1 minute
-     *
-     * @return array
-     */
-    public function getUsersIDsByNicks($nicks, $force = false,  $cacheMinutes = 1)
-    {
-        $users = $this->cacheGet('list');
-
-        if (! $users || $force) {
-            $users = $this->cachePut('list', $this->list(), $cacheMinutes);
-        }
-
-        if (! is_array($nicks)) {
-            $nicks = preg_split('/, ?/', $nicks);
-        }
-
-        $usersIds = [];
-
-        foreach ($users->members as $user) {
-            foreach ($nicks as $nick) {
-                if ($this->isUserNick($user, $nick)) {
-                    $usersIds[] = $user->id;
-                } elseif ($this->isSlackbotNick($nick)) {
-                    $usersIds[] = 'USLACKBOT';
-                }
-            }
-        }
-
-        return $usersIds;
-    }
-
-    /**
-     * Verify if a given nick is for the user.
-     *
-     * @param array $user
-     * @param string $nick
-     *
-     * @return bool
-     */
-    protected function isUserNick($user, $nick)
-    {
-        $nick = str_replace('@', '', $nick);
-
-        return $nick == $user->name || $nick == $user->id;
-    }
-
-    /**
-     * Check if a given nick is for the slackbot.
-     *
-     * @param string $nick
-     *
-     * @return bool
-     */
-    protected function isSlackbotNick($nick)
-    {
-        return $nick == 'slackbot' or $nick == '@slackbot' or $nick == 'USLACKBOT';
-    }
 }
