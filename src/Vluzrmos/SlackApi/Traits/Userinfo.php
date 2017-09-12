@@ -27,7 +27,7 @@ trait Userinfo
 		}
 
 		foreach ($users->members as $user) {
-			if ($user->name == $identifier) {
+			if ($user->id == $identifier || $user->name == $identifier || $user->email == $identifier) {
 				$user_id = $user->id;
 			}
 		}
