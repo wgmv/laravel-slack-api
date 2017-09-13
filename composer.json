@@ -33,18 +33,18 @@
               "Vluzrmos\\SlackApi\\SlackApiServiceProvider"
           ],
           "aliases": {
-              "SlackApi": "Vluzrmos\\SlackApi\\SlackApi",
-              "SlackChannel": "Vluzrmos\\SlackApi\\SlackChannel",
-              "SlackChat": "Vluzrmos\\SlackApi\\SlackChat",
-              "SlackGroup": "Vluzrmos\\SlackApi\\SlackGroup",
-              "SlackFile": "Vluzrmos\\SlackApi\\SlackFile",
-              "SlackSearch" : "Vluzrmos\\SlackApi\\SlackSearch",
-              "SlackInstantMessage": "Vluzrmos\\SlackApi\\SlackInstantMessage",
-              "SlackUser": "Vluzrmos\\SlackApi\\SlackUser",
-              "SlackStar": "Vluzrmos\\SlackApi\\SlackStar",
-              "SlackUserAdmin": "Vluzrmos\\SlackApi\\SlackUserAdmin",
-              "SlackRealTimeMessage": "Vluzrmos\\SlackApi\\SlackRealTimeMessage",
-              "SlackTeam": "Vluzrmos\\SlackApi\\SlackTeam"
+              "SlackApi": "Vluzrmos\\SlackApi\\Facades\\SlackApi",
+              "SlackChannel": "Vluzrmos\\SlackApi\\Facades\\SlackChannel",
+              "SlackChat": "Vluzrmos\\SlackApi\\Facades\\SlackChat",
+              "SlackGroup": "Vluzrmos\\SlackApi\\Facades\\SlackGroup",
+              "SlackFile": "Vluzrmos\\SlackApi\\Facades\\SlackFile",
+              "SlackSearch" : "Vluzrmos\\SlackApi\\Facades\\SlackSearch",
+              "SlackInstantMessage": "Vluzrmos\\SlackApi\\Facades\\SlackInstantMessage",
+              "SlackUser": "Vluzrmos\\SlackApi\\Facades\\SlackUser",
+              "SlackStar": "Vluzrmos\\SlackApi\\Facades\\SlackStar",
+              "SlackUserAdmin": "Vluzrmos\\SlackApi\\Facades\\SlackUserAdmin",
+              "SlackRealTimeMessage": "Vluzrmos\\SlackApi\\Facades\\SlackRealTimeMessage",
+              "SlackTeam": "Vluzrmos\\SlackApi\\Facades\\SlackTeam"
           }
       }
 },
