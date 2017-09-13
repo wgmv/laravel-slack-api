@@ -27,7 +27,9 @@ trait Userinfo
 		}
 
 		foreach ($users->members as $user) {
-			if ($user->id == $identifier || $user->name == $identifier || $user->profile->email == $identifier) {
+			//TODO [Walter] #[13.09.2017]
+			// clean this up / slackbot has no email
+			if (isset($user->profile->email) && ($user->id == $identifier || $user->name == $identifier || $user->profile->email == $identifier)) {
 				$user_id = $user->id;
 			}
 		}
