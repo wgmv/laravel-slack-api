@@ -23,7 +23,7 @@ trait Userinfo
 		$users = $this->cacheGet('userlist');
 
 		if (!$users || $force) {
-			$users = $this->cachePut('userlist', $this->list(), $cacheMinutes);
+			$users = $this->cachePut('userlist', $this->lists(), $cacheMinutes);
 		}
 
 		foreach ($users->members as $user) {
