@@ -2,6 +2,8 @@
 
 namespace Vluzrmos\SlackApi\Traits;
 
+use Vluzrmos\SlackApi\Methods\User;
+
 trait Userinfo
 {
 
@@ -11,31 +13,35 @@ trait Userinfo
 	 * Get an array of users id's by nicks.
 	 *
 	 * @param string $identifier
-	 * @param bool         $force force to reload the users list
-	 *
-	 * @param int          $cacheMinutes Minutes or a Date to cache the results, default 1 minute
+	 * @param int $cacheMinutes Minutes or a Date to cache the results, default 1 minute
 	 *
 	 * @return String
 	 */
-	public function getUserId($identifier, $force = false, $cacheMinutes = 1) : string
+	public function getUserId($identifier, $cacheMinutes = 5) : string
 	{
 		$user_id = '';
 		$users = $this->cacheGet('userlist');
 
-		if (!$users || $force) {
+		if (empty($users)) {
 			$users = $this->cachePut('userlist', $this->lists(), $cacheMinutes);
 		}
 
 		foreach ($users->members as $user) {
-			//TODO [Walter] #[13.09.2017]
-			// clean this up / slackbot has no email
-			if (isset($user->profile->email) && ($user->id == $identifier || $user->name == $identifier || $user->profile->email == $identifier)) {
+			if ((! $user->is_bot) && in_array($identifier, [$user->id, $user->name, $user->profile->email])) {
 				$user_id = $user->id;
 			}
 		}
 
 		return $user_id;
 	}
+
+
+    public function noCache()
+    {
+        $this->cacheForget('userlist');
+
+        return $this;
+    }
 
 //	/**
 //	 * Get an array of users id's by nicks.

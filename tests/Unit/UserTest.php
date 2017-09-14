@@ -66,12 +66,12 @@ class UserTest extends TestCase
     * Test list
     * @test
     */
-    function user_list() {
+    function user_lists() {
 		$method = $this->methodGroup.".list";
 
 		$this->api->shouldReceive('post')->with($method, [])->andReturn('api called '.$method);
 
-		$response = $this->user->list();
+		$response = $this->user->lists();
     	$this->assertEquals('api called '.$method, $response);
     }
 
