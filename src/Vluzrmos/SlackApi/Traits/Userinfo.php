@@ -36,7 +36,7 @@ trait Userinfo
 	}
 
 
-    public function noCache()
+    public function noUserCache()
     {
         $this->cacheForget('userlist');
 

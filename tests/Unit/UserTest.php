@@ -15,6 +15,7 @@ class UserTest extends TestCase
 	protected $api;
 	protected $cache;
 	protected $methodGroup = 'users';
+	protected $fake_response; //not sure if this is the way to do it.
 
 	public function setUp()
 	{
@@ -24,6 +25,9 @@ class UserTest extends TestCase
 		$this->api = Mockery::mock('Vluzrmos\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
 		$this->user = new User($this->api, $this->cache);
+
+        $this->fake_response = new \stdClass();
+        $this->fake_response->members = [];
 	}
 
     /**
@@ -34,11 +38,8 @@ class UserTest extends TestCase
 		$method = $this->methodGroup.".getPresence";
 		$user = '';
 
-		$fake_response = new \stdClass();
-		$fake_response->members = [];
-
 		$this->api->shouldReceive('post')->with($method, compact('user'))->andReturn('api called '.$method);
-		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($fake_response);
+		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->getPresence($user);
     	$this->assertEquals('api called '.$method, $response);
@@ -52,11 +53,8 @@ class UserTest extends TestCase
 		$method = $this->methodGroup.".info";
 		$user = '';
 
-		$fake_response = new \stdClass();
-		$fake_response->members = [];
-
 		$this->api->shouldReceive('post')->with($method, compact('user'))->once()->andReturn('api called '.$method);
-		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($fake_response);
+		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->info($user);
     	$this->assertEquals('api called '.$method, $response);
