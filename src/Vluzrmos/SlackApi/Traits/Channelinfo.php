@@ -24,8 +24,8 @@ trait Channelinfo
 			$channels = $this->cachePut('channellist', $this->lists(), $cacheMinutes);
 		}
 
-		foreach ($channels->members as $channel) {
-			if ((! $channel->is_bot) && in_array($identifier, [$channel->id, $channel->name])) {
+		foreach ($channels->channels as $channel) {
+			if ($channel->is_channel && in_array($identifier, [$channel->id, $channel->name])) {
 				$channel_id = $channel->id;
 			}
 		}

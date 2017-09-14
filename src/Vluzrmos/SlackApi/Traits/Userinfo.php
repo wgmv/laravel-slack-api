@@ -26,11 +26,11 @@ trait Userinfo
 			$users = $this->cachePut('userlist', $this->lists(), $cacheMinutes);
 		}
 
-		foreach ($users->members as $user) {
-			if ((! $user->is_bot) && in_array($identifier, [$user->id, $user->name, $user->profile->email])) {
-				$user_id = $user->id;
-			}
-		}
+        foreach ($users->members as $user) {
+            if (isset($user->profile->email) && in_array($identifier, [$user->id, $user->name, $user->profile->email])) {
+                $user_id = $user->id;
+            }
+        }
 
 		return $user_id;
 	}
