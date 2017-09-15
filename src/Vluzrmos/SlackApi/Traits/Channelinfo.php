@@ -18,6 +18,8 @@ trait Channelinfo
 	public function getChannelId($identifier, $cacheMinutes = 60) : string
 	{
 		$channel_id = '';
+		////TODO [Walter] #[15.09.2017]
+		// create different cache for groups or combine
 		$channels = $this->cacheGet('channellist');
 
 		if (empty($channels)) {
@@ -25,7 +27,7 @@ trait Channelinfo
 		}
 
 		foreach ($channels->channels as $channel) {
-			if ($channel->is_channel && in_array($identifier, [$channel->id, $channel->name])) {
+			if (($channel->is_channel || $channel->is_group) && in_array($identifier, [$channel->id, $channel->name])) {
 				$channel_id = $channel->id;
 			}
 		}
