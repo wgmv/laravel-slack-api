@@ -7,7 +7,6 @@ use Vluzrmos\SlackApi\Traits\Userinfo;
 
 class User extends SlackMethod implements SlackUser
 {
-	use Userinfo;
     protected $methodsGroup = 'users.';
 
     /**
@@ -18,10 +17,8 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function getPresence($identifier)
+    public function getPresence($user)
     {
-		$user = $this->getUserId($identifier);
-
         return $this->method('getPresence', compact('user'));
     }
 
@@ -32,10 +29,8 @@ class User extends SlackMethod implements SlackUser
      *
      * @return array
      */
-    public function info($identifier)
+    public function info($user)
     {
-        $user = $this->getUserId($identifier);
-
         return $this->method('info', compact('user'));
     }
 

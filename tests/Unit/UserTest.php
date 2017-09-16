@@ -36,10 +36,10 @@ class UserTest extends TestCase
     */
     function user_getPresence() {
 		$method = $this->methodGroup.".getPresence";
-		$user = '';
+		$user = 'user_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('user'))->andReturn('api called '.$method);
-		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
+//		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->getPresence($user);
     	$this->assertEquals('api called '.$method, $response);
@@ -51,10 +51,10 @@ class UserTest extends TestCase
     */
     function user_info() {
 		$method = $this->methodGroup.".info";
-		$user = '';
+		$user = 'user_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('user'))->once()->andReturn('api called '.$method);
-		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
+//		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->info($user);
     	$this->assertEquals('api called '.$method, $response);

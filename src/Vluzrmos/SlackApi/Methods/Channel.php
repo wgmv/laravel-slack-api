@@ -3,13 +3,9 @@
 namespace Vluzrmos\SlackApi\Methods;
 
 use Vluzrmos\SlackApi\Contracts\SlackChannel;
-use Vluzrmos\SlackApi\Traits\Channelinfo;
-use Vluzrmos\SlackApi\Traits\Userinfo;
 
 class Channel extends SlackMethod implements SlackChannel
 {
-    use Channelinfo, Userinfo;
-
     protected $methodsGroup = 'channels.';
 
     /**
@@ -19,10 +15,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function archive($identifier)
+    public function archive($channel)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('archive', compact('channel'));
     }
 
@@ -44,7 +38,7 @@ class Channel extends SlackMethod implements SlackChannel
      * and then continue paging using the instructions below.
      * @see https://api.slack.com/methods/channels.history
      *
-     * @param string $identifier channel id or name to fetch history for.
+     * @param string $channel Channel to fetch history for.
      * @param int    $count Number of messages to return, between 1 and 1000.
      * @param string $latest End of time range of messages to include in results.
      * @param int    $oldest Start of time range of messages to include in results.
@@ -52,10 +46,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function history($identifier, $count = 100, $latest = null, $oldest = 0, $inclusive = 1)
+    public function history($channel, $count = 100, $latest = null, $oldest = 0, $inclusive = 1)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('history', compact('channel', 'count', 'latest', 'oldest', 'inclusive'));
     }
 
@@ -68,10 +60,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function info($identifier)
+    public function info($channel)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('info', compact('channel'));
     }
 
@@ -85,11 +75,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function invite($identifier, $user_identifier)
+    public function invite($channel, $user)
     {
-        $channel = $this->getChannelId($identifier);
-        $user = $this->getUserId($user_identifier);
-
         return $this->method('invite', compact('channel', 'user'));
     }
 
@@ -117,10 +104,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function kick($identifier, $user)
+    public function kick($channel, $user)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('kick', compact('channel', 'user'));
     }
 
@@ -133,10 +118,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function leave($identifier)
+    public function leave($channel)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('leave', compact('channel'));
     }
 
@@ -165,10 +148,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function mark($identifier, $ts)
+    public function mark($channel, $ts)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('mark', compact('channel', 'ts'));
     }
 
@@ -186,10 +167,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function rename($identifier, $name)
+    public function rename($channel, $name)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('rename', compact('channel', 'name'));
     }
 
@@ -203,10 +182,8 @@ class Channel extends SlackMethod implements SlackChannel
 	 *
 	 * @return array
 	 */
-	public function replies($identifier, $thread_ts)
+	public function replies($channel, $thread_ts)
 	{
-        $channel = $this->getChannelId($identifier);
-
 		return $this->method('replies', compact('channel', 'thread_ts'));
 	}
 
@@ -220,10 +197,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function setPurpose($identifier, $purpose)
+    public function setPurpose($channel, $purpose)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('setPurpose', compact('channel', 'purpose'));
     }
 
@@ -237,10 +212,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function setTopic($identifier, $topic)
+    public function setTopic($channel, $topic)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('setTopic', compact('channel', 'topic'));
     }
 
@@ -253,10 +226,8 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @return array
      */
-    public function unarchive($identifier)
+    public function unarchive($channel)
     {
-        $channel = $this->getChannelId($identifier);
-
         return $this->method('unarchive', compact('channel'));
     }
 
