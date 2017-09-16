@@ -6,9 +6,6 @@ use Vluzrmos\SlackApi\Methods\User;
 
 trait Userinfo
 {
-
-	protected $user_id;
-
 	/**
 	 * Get an array of users id's by nicks.
 	 *
@@ -29,6 +26,7 @@ trait Userinfo
         foreach ($users->members as $user) {
             if (isset($user->profile->email) && in_array($identifier, [$user->id, $user->name, $user->profile->email])) {
                 $user_id = $user->id;
+                break;
             }
         }
 

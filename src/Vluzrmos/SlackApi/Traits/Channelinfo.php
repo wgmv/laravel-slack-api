@@ -4,9 +4,6 @@ namespace Vluzrmos\SlackApi\Traits;
 
 trait Channelinfo
 {
-
-	protected $user_id;
-
 	/**
 	 * Get an array of channels id's by nicks.
 	 *
@@ -29,6 +26,7 @@ trait Channelinfo
 		foreach ($channels->channels as $channel) {
 			if (($channel->is_channel || $channel->is_group) && in_array($identifier, [$channel->id, $channel->name])) {
 				$channel_id = $channel->id;
+				break;
 			}
 		}
 
