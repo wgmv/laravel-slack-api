@@ -1,20 +1,30 @@
-## Laravel 5 e Lumen - Slack API
+## Laravel 5 and Lumen - Slack API
 
-[![Join the chat at https://gitter.im/vluzrmos/laravel-slack-api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vluzrmos/laravel-slack-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+This package provides a simple way to use the [Slack API](https://api.slack.com).
 
-This package provides a simple way to use [Slack API](https://api.slack.com).
+The package is a fork from https://github.com/vluzrmos/laravel-slack-api The original package is not maintained and I made several changes that possibly make this version incompatible to the original.
 
+### Changes made:
+
+* removed functionality to lookup user by nickname and cache as it was not needed anymore
+* added basic tests
+* updated slack api options on a couple of methods
+* fixed minor bugs
+
+<!---
 [![Latest Stable Version](https://poser.pugx.org/vluzrmos/slack-api/v/stable.svg)](https://packagist.org/packages/vluzrmos/slack-api) [![Total Downloads](https://poser.pugx.org/vluzrmos/slack-api/downloads.svg)](https://packagist.org/packages/vluzrmos/slack-api) [![Latest Unstable Version](https://poser.pugx.org/vluzrmos/slack-api/v/unstable.svg)](https://packagist.org/packages/vluzrmos/slack-api) [![License](https://poser.pugx.org/vluzrmos/slack-api/license.svg)](https://packagist.org/packages/vluzrmos/slack-api)
+-->
 
-## Instalation 
+## Installation 
 
-`composer require vluzrmos/slack-api`
+`composer require wgmv/laravel-slack-api`
 
-## Instalation on Laravel 5
-Add to `config/app.php`:
+## Installation on Laravel 5
+
+The package has autodiscovery enabled. (A laravel 5.5 feature)
 
 ```php
-<?php 
+<?php
 
 [
     'providers' => [
@@ -24,94 +34,14 @@ Add to `config/app.php`:
 
 ?>
 ```
-> The ::class notation is optional.
-
-
-and add the Facades to your aliases, if you need it
-
-```php
-<?php
-
-[
-    'aliases' => [
-        'SlackApi'              => Vluzrmos\SlackApi\Facades\SlackApi::class,
-        'SlackChannel'          => Vluzrmos\SlackApi\Facades\SlackChannel::class,
-        'SlackChat'             => Vluzrmos\SlackApi\Facades\SlackChat::class,
-        'SlackGroup'            => Vluzrmos\SlackApi\Facades\SlackGroup::class,
-        'SlackFile'             => Vluzrmos\SlackApi\Facades\SlackFile::class,
-        'SlackSearch'           => Vluzrmos\SlackApi\Facades\SlackSearch::class,
-        'SlackInstantMessage'   => Vluzrmos\SlackApi\Facades\SlackInstantMessage::class,
-        'SlackUser'             => Vluzrmos\SlackApi\Facades\SlackUser::class,
-        'SlackStar'             => Vluzrmos\SlackApi\Facades\SlackStar::class,
-        'SlackUserAdmin'        => Vluzrmos\SlackApi\Facades\SlackUserAdmin::class,
-        'SlackRealTimeMessage'  => Vluzrmos\SlackApi\Facades\SlackRealTimeMessage::class,
-        'SlackTeam'             => Vluzrmos\SlackApi\Facades\SlackTeam::class,
-    ]
-]
-
-?>
-```
-> The ::class notation is optional.
-
-## Instalation on Lumen
-
-Add that line on `bootstrap/app.php`:
-
-```php
-<?php 
-// $app->register('App\Providers\AppServiceProvider'); (by default that comes commented)
-$app->register('Vluzrmos\SlackApi\SlackApiServiceProvider');
-
-?>
-```
-
-If you want to use facades, add this lines on <code>bootstrap/app.php</code>
-
-```php
-<?php
-
-class_alias('Vluzrmos\SlackApi\Facades\SlackApi', 'SlackApi');
-class_alias('Vluzrmos\SlackApi\Facades\SlackChannel', 'SlackChannel');
-class_alias('Vluzrmos\SlackApi\Facades\SlackChat', 'SlackChat');
-class_alias('Vluzrmos\SlackApi\Facades\SlackGroup', 'SlackGroup');
-class_alias('Vluzrmos\SlackApi\Facades\SlackUser', 'SlackUser');
-class_alias('Vluzrmos\SlackApi\Facades\SlackTeam', 'SlackTeam');
-//... and others
-
-?>
-```
-
-Otherwise, just use the singleton shortcuts:
-
-```php
-<?php
-
-/** @var \Vluzrmos\SlackApi\Contracts\SlackApi $slackapi */
-$slackapi     = app('slack.api');
-
-/** @var \Vluzrmos\SlackApi\Contracts\SlackChat $slackchat */
-$slackchat    = app('slack.chat');
-
-/** @var \Vluzrmos\SlackApi\Contracts\SlackChannel $slackchannel */
-$slackchannel = app('slack.channel');
-
-//or 
-
-/** @var \Vluzrmos\SlackApi\Contracts\SlackApi $slackapi */
-$slackapi  = slack();
-
-/** @var \Vluzrmos\SlackApi\Contracts\SlackChat $slackchat */
-$slackchat = slack('chat'); // or slack('slack.chat')
-
-//...
-//...
-
-?>
-```
 
 ## Configuration
 
-configure your slack team token in <code>config/services.php</code> 
+This package uses slacks legacy tokens. Get you token here:
+
+https://api.slack.com/custom-integrations/legacy-tokens
+
+Configure your slack team token in <code>config/services.php</code> 
 
 ```php 
 <?php
@@ -126,19 +56,60 @@ configure your slack team token in <code>config/services.php</code>
 ?>
 ```
 
+
+## Installation on Lumen
+
+I have not tested the lumen installation! Documentation from the original package:
+
+Add the following line on `bootstrap/app.php`:
+
+```php
+<?php
+
+// $app->register('App\Providers\AppServiceProvider'); (by default that comes commented)
+$app->register('Vluzrmos\SlackApi\SlackApiServiceProvider');
+
+?>
+```
+
+If you want to use facades, add this lines on <code>bootstrap/app.php</code>
+
+```php
+<?php
+
+class_alias('Vluzrmos\SlackApi\Facades\SlackApi', 'SlackApi');
+//... and others
+
+?>
+```
+
+Otherwise, just use the singleton shortcuts:
+
+```php
+<?php
+/** @var \Vluzrmos\SlackApi\Contracts\SlackApi $slackapi */
+$slackapi     = app('slack.api');
+
+/** @var \Vluzrmos\SlackApi\Contracts\SlackChannel $slackchannel */
+$slackchannel = app('slack.channel');
+
+etc
+?>
+```
+
 ## Usage
 
 ```php
 <?php
 
 //Lists all users on your team
-SlackUser::lists(); //all()
+SlackUser::lists(); 
 
 //Lists all channels on your team
-SlackChannel::lists(); //all()
+SlackChannel::lists(); 
 
 //List all groups
-SlackGroup::lists(); //all()
+SlackGroup::lists();
 
 //Invite a new member to your team
 SlackUserAdmin::invite("example@example.com", [
@@ -181,7 +152,6 @@ slack('Team')->info();
 ## Using Dependency Injection
 
 ```php
-<?php 
 
 namespace App\Http\Controllers;    
     
@@ -200,7 +170,6 @@ class YourController extends Controller{
     }
 }
 
-?>
 ```
 
 ## All Injectable Contracts:
