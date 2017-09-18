@@ -25,11 +25,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Wgmv\\": "src/Wgmv/"
+            "Wgmv\\SlackApi\\": "src/"
         },
         "files" : [
-            "src/Wgmv/SlackApi/helpers.php"
+            "src/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wgmv\\SlackApi\\Tests\\": "tests/"
+        }
     },
     "extra": {
       "laravel": {
