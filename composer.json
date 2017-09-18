@@ -1,5 +1,5 @@
 {
-    "name": "vluzrmos/slack-api",
+    "name": "wgmv/laravel-slack-api",
     "description": "Wrapper for Slack.com WEB API.",
     "license": "DBAD",
     "keywords":["Laravel", "Lumen", "Slack"],
@@ -7,6 +7,10 @@
         {
             "name": "Vagner do Carmo",
             "email": "vluzrmos@gmail.com"
+        },
+        {
+            "name": "Walter Vogel",
+            "email": "wvogel@generation2.de"
         }
     ],
     "require": {
@@ -21,30 +25,30 @@
     },
     "autoload": {
         "psr-4": {
-            "Vluzrmos\\": "src/Vluzrmos/"
+            "Wgmv\\": "src/Wgmv/"
         },
         "files" : [
-            "src/Vluzrmos/SlackApi/helpers.php"
+            "src/Wgmv/SlackApi/helpers.php"
         ]
     },
     "extra": {
       "laravel": {
           "providers": [
-              "Vluzrmos\\SlackApi\\SlackApiServiceProvider"
+              "Wgmv\\SlackApi\\SlackApiServiceProvider"
           ],
           "aliases": {
-              "SlackApi": "Vluzrmos\\SlackApi\\Facades\\SlackApi",
-              "SlackChannel": "Vluzrmos\\SlackApi\\Facades\\SlackChannel",
-              "SlackChat": "Vluzrmos\\SlackApi\\Facades\\SlackChat",
-              "SlackGroup": "Vluzrmos\\SlackApi\\Facades\\SlackGroup",
-              "SlackFile": "Vluzrmos\\SlackApi\\Facades\\SlackFile",
-              "SlackSearch" : "Vluzrmos\\SlackApi\\Facades\\SlackSearch",
-              "SlackInstantMessage": "Vluzrmos\\SlackApi\\Facades\\SlackInstantMessage",
-              "SlackUser": "Vluzrmos\\SlackApi\\Facades\\SlackUser",
-              "SlackStar": "Vluzrmos\\SlackApi\\Facades\\SlackStar",
-              "SlackUserAdmin": "Vluzrmos\\SlackApi\\Facades\\SlackUserAdmin",
-              "SlackRealTimeMessage": "Vluzrmos\\SlackApi\\Facades\\SlackRealTimeMessage",
-              "SlackTeam": "Vluzrmos\\SlackApi\\Facades\\SlackTeam"
+              "SlackApi": "Wgmv\\SlackApi\\Facades\\SlackApi",
+              "SlackChannel": "Wgmv\\SlackApi\\Facades\\SlackChannel",
+              "SlackChat": "Wgmv\\SlackApi\\Facades\\SlackChat",
+              "SlackGroup": "Wgmv\\SlackApi\\Facades\\SlackGroup",
+              "SlackFile": "Wgmv\\SlackApi\\Facades\\SlackFile",
+              "SlackSearch" : "Wgmv\\SlackApi\\Facades\\SlackSearch",
+              "SlackInstantMessage": "Wgmv\\SlackApi\\Facades\\SlackInstantMessage",
+              "SlackUser": "Wgmv\\SlackApi\\Facades\\SlackUser",
+              "SlackStar": "Wgmv\\SlackApi\\Facades\\SlackStar",
+              "SlackUserAdmin": "Wgmv\\SlackApi\\Facades\\SlackUserAdmin",
+              "SlackRealTimeMessage": "Wgmv\\SlackApi\\Facades\\SlackRealTimeMessage",
+              "SlackTeam": "Wgmv\\SlackApi\\Facades\\SlackTeam"
           }
       }
 },

@@ -5,9 +5,9 @@ namespace Tests\Unit;
 //use Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
-//use Vluzrmos\SlackApi\SlackApi;
+//use Wgmv\SlackApi\SlackApi;
 use Mockery;
-use Vluzrmos\SlackApi\Methods\Channel;
+use Wgmv\SlackApi\Methods\Channel;
 
 
 class ChannelTest extends TestCase
@@ -26,7 +26,7 @@ class ChannelTest extends TestCase
 		parent::setUp();
 //		$api = new SlackApi(new \GuzzleHttp\Client, null);
 
-		$this->api = Mockery::mock('Vluzrmos\SlackApi\Contracts\SlackApi');
+		$this->api = Mockery::mock('Wgmv\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
 		$this->channel = new Channel($this->api);
 

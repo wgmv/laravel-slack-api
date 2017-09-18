@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Mockery;
-use Vluzrmos\SlackApi\Methods\User;
+use Wgmv\SlackApi\Methods\User;
 
 
 class UserTest extends TestCase
@@ -22,7 +22,7 @@ class UserTest extends TestCase
 		parent::setUp();
 //		$api = new SlackApi(new \GuzzleHttp\Client, null);
 
-		$this->api = Mockery::mock('Vluzrmos\SlackApi\Contracts\SlackApi');
+		$this->api = Mockery::mock('Wgmv\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
 		$this->user = new User($this->api);
 
