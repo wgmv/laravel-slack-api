@@ -2,7 +2,7 @@
 
 This package provides a simple way to use the [Slack API](https://api.slack.com).
 
-The package is a fork from https://github.com/Wgmv/laravel-slack-api The original package is not maintained and I made several changes that possibly make this version incompatible to the original.
+The package is a fork from https://github.com/Vluzrmos/laravel-slack-api The original package is not maintained and I made several changes that possibly make this version incompatible to the original.
 
 ### Changes made:
 
