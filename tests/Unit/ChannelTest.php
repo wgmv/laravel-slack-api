@@ -7,7 +7,7 @@ namespace Tests\Unit;
 use PHPUnit\Framework\TestCase;
 //use Vluzrmos\SlackApi\SlackApi;
 use Mockery;
-use Vluzrmos\SlackApi\Methods\Channelinfo;
+use Vluzrmos\SlackApi\Methods\Channel;
 
 
 class ChannelTest extends TestCase
@@ -28,7 +28,7 @@ class ChannelTest extends TestCase
 
 		$this->api = Mockery::mock('Vluzrmos\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
-		$this->channel = new Channelinfo($this->api, $this->cache);
+		$this->channel = new Channel($this->api);
 
         $this->fake_response = new \stdClass();
         $this->fake_response->members = [];

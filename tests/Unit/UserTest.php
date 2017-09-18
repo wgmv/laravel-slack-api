@@ -24,7 +24,7 @@ class UserTest extends TestCase
 
 		$this->api = Mockery::mock('Vluzrmos\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
-		$this->user = new User($this->api, $this->cache);
+		$this->user = new User($this->api);
 
         $this->fake_response = new \stdClass();
         $this->fake_response->members = [];
