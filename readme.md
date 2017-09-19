@@ -6,7 +6,8 @@ The package is a fork from https://github.com/Vluzrmos/laravel-slack-api The ori
 
 ### Changes made:
 
-* removed functionality to lookup user by nickname and cache as it was not needed anymore
+* removed functionality to lookup user by nickname: this package provides basic functionality 
+* removed cache as it was not needed anymore
 * added basic tests
 * updated slack api options on a couple of methods
 * fixed minor bugs
@@ -97,7 +98,7 @@ etc
 ?>
 ```
 
-## Usage
+## Example Usage
 
 ```php
 <?php
@@ -117,26 +118,6 @@ SlackUserAdmin::invite("example@example.com", [
     'last_name' => 'Doe'
 ]);
 
-//Send a message to someone or channel or group
-SlackChat::message('#general', 'Hello my friends!');
-
-//Upload a file/snippet
-SlackFile::upload([
-    'filename' => 'sometext.txt', 
-    'title' => 'text', 
-    'content' => 'Nice contents',
-    'channels' => 'C0440SZU6' //can be channel, users, or groups ID
-]);
-
-// Search for files or messages
-SlackSearch::all('my message');
-
-// Search for files
-SlackSearch::files('my file');
-
-// Search for messages
-SlackSearch::messages('my message');
-
 // or just use the helper
 
 //Autoload the api
@@ -149,29 +130,6 @@ slack('Team')->info();
 ?>
 ```
 
-## Using Dependency Injection
-
-```php
-
-namespace App\Http\Controllers;    
-    
-use Wgmv\SlackApi\Contracts\SlackUser;
-
-class YourController extends Controller{
-    /** @var  SlackUser */
-    protected $slackUser;
-    
-    public function __construct(SlackUser as $slackUser){
-        $this->slackUser = $slackUser;   
-    }
-    
-    public function controllerMethod(){
-        $usersList = $this->slackUser->lists();
-    }
-}
-
-```
-
 ## All Injectable Contracts:
 
 ### Generic API
@@ -180,6 +138,7 @@ class YourController extends Controller{
 Allows you to do generic requests to the api with the following http verbs:
 `get`, `post`, `put`, `patch`, `delete` ... all allowed api methods you could see here: [Slack Web API Methods](https://api.slack.com/methods).
 
+<!--
 And is also possible load a SlackMethod contract:
 
 ```php
@@ -199,6 +158,7 @@ $admin->invite('jhon.doe@example.com');
 
 ?>
 ```
+-->
 
 ### Channels API
 `Wgmv\SlackApi\Contracts\SlackChannel`

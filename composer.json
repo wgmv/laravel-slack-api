@@ -6,11 +6,13 @@
     "authors": [
         {
             "name": "Vagner do Carmo",
-            "email": "vluzrmos@gmail.com"
+            "email": "vluzrmos@gmail.com",
+            "role": "Original author"
         },
         {
             "name": "Walter Vogel",
-            "email": "wvogel@generation2.de"
+            "email": "walter@wgmv.de",
+            "role": "Contributor"
         }
     ],
     "require": {
