@@ -11,7 +11,7 @@ class SlackApiServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Methods to register.
@@ -32,24 +32,6 @@ class SlackApiServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Default contracts namespace.
-     * @var string
-     */
-    protected $contractsNamespace = 'Wgmv\SlackApi\Contracts';
-
-    /**
-     * Default methods namespace.
-     * @var string
-     */
-    protected $methodsNamespace = 'Wgmv\SlackApi\Methods';
-
-    /**
-     * Default prefix of facade accessors.
-     * @var string
-     */
-    protected $shortcutPrefix = 'slack.';
-
-    /**
      * Register the service provider.
      */
     public function register()
@@ -60,54 +42,25 @@ class SlackApiServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton('Wgmv\SlackApi\Contracts\SlackApi', function () {
-            $api = new SlackApi(null, config('services.slack.token'));
-
-            return $api;
+            return new SlackApi(null, config('services.slack.token'));
         });
 
         $this->app->alias('Wgmv\SlackApi\Contracts\SlackApi', 'slack.api');
 
         foreach ($this->methods as $method) {
-            $this->registerSlackMethod($method);
-        }
 
-        $this->app->alias('Wgmv\SlackApi\Contracts\SlackInstantMessage', 'slack.im');
+            $contract = "Wgmv\SlackApi\Contracts\Slack{$method}";
+            $class = "Wgmv\SlackApi\Methods\{$method}";
+            $shortcut = "slack.".snake_case($method);
 
-        $this->app->alias('Wgmv\SlackApi\Contracts\SlackRealTimeMessage', 'slack.rtm');
-    }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['slack.api'];
-    }
+            $this->app->singleton($contract, function () use ($class) {
+                return new $class($this->app['slack.api']);
+            });
 
-    public function registerSlackMethod($name)
-    {
-        $contract = str_finish($this->contractsNamespace, '\\')."Slack{$name}";
-        $shortcut = $this->shortcutPrefix.snake_case($name);
-        $class = str_finish($this->methodsNamespace, '\\').$name;
-
-        $this->registerSlackSingletons($contract, $class, $shortcut);
-    }
-
-    /**
-     * @param $contract
-     * @param $class
-     * @param $shortcut
-     */
-    public function registerSlackSingletons($contract, $class, $shortcut = null)
-    {
-        $this->app->singleton($contract, function () use ($class) {
-            return new $class($this->app['slack.api'], $this->app['cache.store']);
-        });
-
-        if ($shortcut) {
             $this->app->alias($contract, $shortcut);
         }
+
     }
+
 }
