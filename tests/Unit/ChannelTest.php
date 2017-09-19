@@ -56,8 +56,9 @@ class ChannelTest extends TestCase
     function channel_create() {
 		$method = $this->methodGroup.".create";
 		$name = 'channel_name';
+		$validate = true;
 
-		$this->api->shouldReceive('post')->with($method, compact('name'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('name', 'validate'))->andReturn('api called '.$method);
 
 		$response = $this->channel->create($name);
 
@@ -72,12 +73,13 @@ class ChannelTest extends TestCase
 		$method = $this->methodGroup.".history";
 		$channel = 'channel_id';
 		$count = 100;
-		$latest = null;
+		$latest = 'now';
 		$oldest = 0;
 		$inclusive = 1;
+		$unreads = 1;
 
 		$this->api->shouldReceive('post')
-			->with($method, compact('channel', 'count', 'latest', 'oldest', 'inclusive'))
+			->with($method, compact('channel', 'count', 'latest', 'oldest', 'inclusive', 'unreads'))
 			->andReturn('api called '.$method);
 //        $this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
@@ -93,8 +95,9 @@ class ChannelTest extends TestCase
 	function channel_info() {
 		$method = $this->methodGroup.".info";
 		$channel = 'channel_id';
+		$include_locale = false;
 
-		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel','include_locale'))->andReturn('api called '.$method);
 //        $this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->info($channel);
@@ -211,8 +214,9 @@ class ChannelTest extends TestCase
 		$method = $this->methodGroup.".rename";
 		$channel = 'channel_id';
 		$name = 'new_name';
+		$validate = true;
 
-		$this->api->shouldReceive('post')->with($method, compact('channel', 'name'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, compact('channel', 'name', 'validate'))->andReturn('api called '.$method);
         //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->rename($channel, $name);
