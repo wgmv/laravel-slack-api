@@ -24,12 +24,13 @@ class Channel extends SlackMethod implements SlackChannel
      * This method crate a channel with a given name.
      *
      * @param string $name Name of channel to create
+     * @param bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
      *
      * @return array
      */
-    public function create($name)
+    public function create($name, $validate = true)
     {
-        return $this->method('create', compact('name'));
+        return $this->method('create', compact('name', 'validate'));
     }
 
     /**
@@ -43,12 +44,13 @@ class Channel extends SlackMethod implements SlackChannel
      * @param string $latest End of time range of messages to include in results.
      * @param int    $oldest Start of time range of messages to include in results.
      * @param int    $inclusive Include messages with latest or oldest timestamp in results.
+     * @param int    $unreads Include unread_count_display in the output?
      *
      * @return array
      */
-    public function history($channel, $count = 100, $latest = null, $oldest = 0, $inclusive = 1)
+    public function history($channel, $count = 100, $latest = "now", $oldest = 0, $inclusive = 1, $unreads = 1)
     {
-        return $this->method('history', compact('channel', 'count', 'latest', 'oldest', 'inclusive'));
+        return $this->method('history', compact('channel', 'count', 'latest', 'oldest', 'inclusive', 'unreads'));
     }
 
     /**
@@ -57,12 +59,13 @@ class Channel extends SlackMethod implements SlackChannel
      * @see https://api.slack.com/methods/channels.info
      *
      * @param string $channel Channel to get info on
+     * @param bool $include_locale Set this to true to receive the locale for this channel. Defaults to false
      *
      * @return array
      */
-    public function info($channel)
+    public function info($channel, $include_locale = false)
     {
-        return $this->method('info', compact('channel'));
+        return $this->method('info', compact('channel', 'include_locale'));
     }
 
     /**
@@ -86,10 +89,11 @@ class Channel extends SlackMethod implements SlackChannel
      * @see https://api.slack.com/methods/channels.join
      *
      * @param string $name Channel name to join in
+     * @param bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
      *
      * @return array
      */
-    public function join($name)
+    public function join($name, $validate = true)
     {
         return $this->method('join', compact('name'));
     }
@@ -124,12 +128,16 @@ class Channel extends SlackMethod implements SlackChannel
     }
 
     /**
-     * This method returns a list of all channels in the team. This includes channels the caller is in, channels they are not currently in, and archived channels.
+     * This method returns a list of all channels in the team.
+     * This includes channels the caller is in, channels they are not currently in, and archived channels.
      * The number of (non-deactivated) members in each channel is also returned.
      *
      * @see https://api.slack.com/methods/channels.list
      *
-     * @param int $exclude_archived Don't return archived channels.
+     * @param string $cursor Paginate through collections of data by setting the cursor parameter to a next_cursor attribute returned by a previous request's response_metadata
+     * @param bool $exclude_archived Exclude archived channels from the list
+     * @param bool $exclude_members Exclude the members collection from each channel
+     * @param int $limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.     *
      *
      * @return array
      */
@@ -157,19 +165,20 @@ class Channel extends SlackMethod implements SlackChannel
      * This method renames a team channel.
      *
      * The only people who can rename a channel are team admins, or the person that originally
-     * created the channel. Others will recieve a "not_authorized" error.
+     * created the channel. Others will receive a "not_authorized" error.
      *
      * @see https://api.slack.com/methods/channels.rename
      *
      * @param string $channel Channel to rename
      *
      * @param  string $name New name for channel
+     * @param  bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
      *
      * @return array
      */
-    public function rename($channel, $name)
+    public function rename($channel, $name, $validate = true)
     {
-        return $this->method('rename', compact('channel', 'name'));
+        return $this->method('rename', compact('channel', 'name', 'validate'));
     }
 
 	/**
