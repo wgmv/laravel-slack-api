@@ -19,19 +19,18 @@ class ChannelTest extends TestCase
 	protected $cache;
 	protected $methodGroup = 'channels';
 
-    protected $fake_response; //not sure if this is the way to do it.
+//    protected $fake_response; //not sure if this is the way to do it.
 
 	public function setUp()
 	{
 		parent::setUp();
-//		$api = new SlackApi(new \GuzzleHttp\Client, null);
 
 		$this->api = Mockery::mock('Wgmv\SlackApi\Contracts\SlackApi');
 		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
 		$this->channel = new Channel($this->api);
 
-        $this->fake_response = new \stdClass();
-        $this->fake_response->members = [];
+//        $this->fake_response = new \stdClass();
+//        $this->fake_response->members = [];
 	}
 
     /**
@@ -43,7 +42,6 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
-//      $this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->archive($channel);
     	$this->assertEquals('api called '.$method, $response);
@@ -81,7 +79,6 @@ class ChannelTest extends TestCase
 		$this->api->shouldReceive('post')
 			->with($method, compact('channel', 'count', 'latest', 'oldest', 'inclusive', 'unreads'))
 			->andReturn('api called '.$method);
-//        $this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->history($channel);
 
@@ -98,7 +95,6 @@ class ChannelTest extends TestCase
 		$include_locale = false;
 
 		$this->api->shouldReceive('post')->with($method, compact('channel','include_locale'))->andReturn('api called '.$method);
-//        $this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->info($channel);
 
@@ -115,7 +111,6 @@ class ChannelTest extends TestCase
 		$user = 'user_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'user'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->invite($channel, $user);
 
@@ -147,8 +142,6 @@ class ChannelTest extends TestCase
 		$user = '';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'user'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
-        $this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->kick($channel, $user);
 
@@ -165,7 +158,6 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->leave($channel);
 
@@ -199,7 +191,6 @@ class ChannelTest extends TestCase
 		$ts = 1505160576;
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'ts'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->mark($channel, $ts);
     	$this->assertEquals('api called '.$method, $response);
@@ -217,7 +208,6 @@ class ChannelTest extends TestCase
 		$validate = true;
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'name', 'validate'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->rename($channel, $name);
     	$this->assertEquals('api called '.$method, $response);
@@ -234,7 +224,6 @@ class ChannelTest extends TestCase
 		$purpose = 'purpose';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'purpose'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->setPurpose($channel, $purpose);
     	$this->assertEquals('api called '.$method, $response);
@@ -251,7 +240,6 @@ class ChannelTest extends TestCase
 		$topic = 'topic';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'topic'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->setTopic($channel, $topic);
     	$this->assertEquals('api called '.$method, $response);
@@ -267,7 +255,6 @@ class ChannelTest extends TestCase
 		$channel = 'channel_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('channel'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->unarchive($channel);
     	$this->assertEquals('api called '.$method, $response);
@@ -284,7 +271,6 @@ class ChannelTest extends TestCase
 		$thread_ts = 1505160576;
 
 		$this->api->shouldReceive('post')->with($method, compact('channel', 'thread_ts'))->andReturn('api called '.$method);
-        //$this->cache->shouldReceive('get')->with('__vlz_slackc_channellist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->channel->replies($channel, $thread_ts);
     	$this->assertEquals('api called '.$method, $response);
