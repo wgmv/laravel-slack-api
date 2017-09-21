@@ -54,9 +54,9 @@ class ChannelTest extends TestCase
     function channel_create() {
 		$method = $this->methodGroup.".create";
 		$name = 'channel_name';
-		$validate = true;
+		$options = [];
 
-		$this->api->shouldReceive('post')->with($method, compact('name', 'validate'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, array_merge(compact('name'), $options))->andReturn('api called '.$method);
 
 		$response = $this->channel->create($name);
 
@@ -70,14 +70,10 @@ class ChannelTest extends TestCase
     function channel_history() {
 		$method = $this->methodGroup.".history";
 		$channel = 'channel_id';
-		$count = 100;
-		$latest = 'now';
-		$oldest = 0;
-		$inclusive = 1;
-		$unreads = 1;
+		$options = [];
 
 		$this->api->shouldReceive('post')
-			->with($method, compact('channel', 'count', 'latest', 'oldest', 'inclusive', 'unreads'))
+			->with($method, array_merge(compact('channel'), $options))
 			->andReturn('api called '.$method);
 
 		$response = $this->channel->history($channel);
@@ -92,9 +88,9 @@ class ChannelTest extends TestCase
 	function channel_info() {
 		$method = $this->methodGroup.".info";
 		$channel = 'channel_id';
-		$include_locale = false;
+		$options = [];
 
-		$this->api->shouldReceive('post')->with($method, compact('channel','include_locale'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, array_merge(compact('channel'), $options))->andReturn('api called '.$method);
 
 		$response = $this->channel->info($channel);
 
@@ -170,14 +166,11 @@ class ChannelTest extends TestCase
     */
     function channel_list() {
 		$method = $this->methodGroup.".list";
-		$cursor = "";
-		$exclude_archived = true;
-		$exclude_members = true;
-		$limit = 20;
+		$options = [];
 
-		$this->api->shouldReceive('post')->with($method, compact('cursor', 'exclude_archived', 'exclude_members', 'limit'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, $options)->andReturn('api called '.$method);
 
-		$response = $this->channel->lists($cursor, $exclude_archived, $exclude_members, $limit);
+		$response = $this->channel->lists();
     	$this->assertEquals('api called '.$method, $response);
     }
 
@@ -205,9 +198,9 @@ class ChannelTest extends TestCase
 		$method = $this->methodGroup.".rename";
 		$channel = 'channel_id';
 		$name = 'new_name';
-		$validate = true;
+		$options = [];
 
-		$this->api->shouldReceive('post')->with($method, compact('channel', 'name', 'validate'))->andReturn('api called '.$method);
+		$this->api->shouldReceive('post')->with($method, array_merge(compact('channel', 'name'), $options))->andReturn('api called '.$method);
 
 		$response = $this->channel->rename($channel, $name);
     	$this->assertEquals('api called '.$method, $response);

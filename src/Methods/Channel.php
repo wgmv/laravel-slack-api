@@ -22,15 +22,22 @@ class Channel extends SlackMethod implements SlackChannel
 
     /**
      * This method crate a channel with a given name.
+     * @see https://api.slack.com/methods/channels.create
      *
      * @param string $name Name of channel to create
-     * @param bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * @param array $options
      *
+     * @example
+     * <pre>
+     * [
+     *    "validate"  => true, // Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * ]
+     *</pre>
      * @return array
      */
-    public function create($name, $validate = true)
+    public function create($name, $options = [])
     {
-        return $this->method('create', compact('name', 'validate'));
+        return $this->method('create', array_merge(compact('name'), $options));
     }
 
     /**
@@ -45,12 +52,23 @@ class Channel extends SlackMethod implements SlackChannel
      * @param int    $oldest Start of time range of messages to include in results.
      * @param int    $inclusive Include messages with latest or oldest timestamp in results.
      * @param int    $unreads Include unread_count_display in the output?
-     *
+     * @param array $options
+     * @example
+     * <pre>
+     * [
+     *    "channel"  => C1234567890, // Channel to fetch history for.
+     *    "count"  => 100, // Number of messages to return, between 1 and 1000.
+     *    "inclusive"  => true, // Include messages with latest or oldest timestamp in results.
+     *    "latest"  => now, // End of time range of messages to include in results.
+     *    "oldest"  => 0, // Start of time range of messages to include in results.
+     *    "unreads"  => true, // Include unread_count_display in the output?
+     * ]
+     *</pre>
      * @return array
      */
-    public function history($channel, $count = 100, $latest = "now", $oldest = 0, $inclusive = 1, $unreads = 1)
+    public function history($channel, $options = [])
     {
-        return $this->method('history', compact('channel', 'count', 'latest', 'oldest', 'inclusive', 'unreads'));
+        return $this->method('history', array_merge(compact('channel'), $options));
     }
 
     /**
@@ -59,13 +77,20 @@ class Channel extends SlackMethod implements SlackChannel
      * @see https://api.slack.com/methods/channels.info
      *
      * @param string $channel Channel to get info on
-     * @param bool $include_locale Set this to true to receive the locale for this channel. Defaults to false
+     * @param array $options
      *
+     * @example
+     * <pre>
+     * [
+     *    "include_locale"  => true, // Set this to true to receive the locale for this channel. Defaults to false
+     * ]
+     *</pre>
+     * @return array
      * @return array
      */
-    public function info($channel, $include_locale = false)
+    public function info($channel, $options = [])
     {
-        return $this->method('info', compact('channel', 'include_locale'));
+        return $this->method('info', array_merge(compact('channel'), $options));
     }
 
     /**
@@ -89,13 +114,20 @@ class Channel extends SlackMethod implements SlackChannel
      * @see https://api.slack.com/methods/channels.join
      *
      * @param string $name Channel name to join in
-     * @param bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * @param array $options
      *
+     * @example
+     * <pre>
+     * [
+     *    "validate"  => true, // Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * ]
+     *</pre>
+     * @return array
      * @return array
      */
-    public function join($name, $validate = true)
+    public function join($name, $options = [])
     {
-        return $this->method('join', compact('name'));
+        return $this->method('join', array_merge(compact('name'), $options));
     }
 
     /**
@@ -134,16 +166,26 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.list
      *
-     * @param string $cursor Paginate through collections of data by setting the cursor parameter to a next_cursor attribute returned by a previous request's response_metadata
+     * @param string $cursor
      * @param bool $exclude_archived Exclude archived channels from the list
      * @param bool $exclude_members Exclude the members collection from each channel
      * @param int $limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.     *
+     * @param array $options
      *
+     * @example
+     * <pre>
+     * [
+     *    "cursor"  => dXNlcjpVMDYxTkZUVDI, // Paginate through collections of data by setting the cursor parameter to a next_cursor attribute returned by a previous request's response_metadata
+     *    "exclude_archived"  => false, // Exclude archived channels from the list
+     *    "exclude_members"  => false, // Exclude the members collection from each channel
+     *    "limit"  => 0, // The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
+     * ]
+     *</pre>
      * @return array
      */
-    public function lists($cursor = "", $exclude_archived = true, $exclude_members = true, $limit = 20)
+    public function lists($options = [])
     {
-		return $this->method('list', compact('cursor', 'exclude_archived', 'exclude_members', 'limit'));
+		return $this->method('list', $options);
     }
 
     /**
@@ -172,13 +214,19 @@ class Channel extends SlackMethod implements SlackChannel
      * @param string $channel Channel to rename
      *
      * @param  string $name New name for channel
-     * @param  bool $validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * @param array $options
      *
+     * @example
+     * <pre>
+     * [
+     *    "validate"  => true, // Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+     * ]
+     *</pre>
      * @return array
      */
-    public function rename($channel, $name, $validate = true)
+    public function rename($channel, $name, $options = [])
     {
-        return $this->method('rename', compact('channel', 'name', 'validate'));
+        return $this->method('rename', array_merge(compact('channel', 'name'), $options));
     }
 
 	/**
