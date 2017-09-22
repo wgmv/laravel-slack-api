@@ -13,17 +13,14 @@ class UserTest extends TestCase
 //	private $url = 'https://slack.com/api';
 	protected $user;
 	protected $api;
-	protected $cache;
 	protected $methodGroup = 'users';
 	protected $fake_response; //not sure if this is the way to do it.
 
 	public function setUp()
 	{
 		parent::setUp();
-//		$api = new SlackApi(new \GuzzleHttp\Client, null);
 
 		$this->api = Mockery::mock('Wgmv\SlackApi\Contracts\SlackApi');
-		$this->cache = Mockery::mock('Illuminate\Contracts\Cache\Repository');
 		$this->user = new User($this->api);
 
         $this->fake_response = new \stdClass();
@@ -39,7 +36,6 @@ class UserTest extends TestCase
 		$user = 'user_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('user'))->andReturn('api called '.$method);
-//		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->getPresence($user);
     	$this->assertEquals('api called '.$method, $response);
@@ -54,7 +50,6 @@ class UserTest extends TestCase
 		$user = 'user_id';
 
 		$this->api->shouldReceive('post')->with($method, compact('user'))->once()->andReturn('api called '.$method);
-//		$this->cache->shouldReceive('get')->with('__vlz_slackc_userlist', NULL)->once()->andReturn($this->fake_response);
 
 		$response = $this->user->info($user);
     	$this->assertEquals('api called '.$method, $response);

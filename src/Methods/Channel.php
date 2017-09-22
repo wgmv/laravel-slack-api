@@ -47,11 +47,7 @@ class Channel extends SlackMethod implements SlackChannel
      * @see https://api.slack.com/methods/channels.history
      *
      * @param string $channel Channel to fetch history for.
-     * @param int    $count Number of messages to return, between 1 and 1000.
-     * @param string $latest End of time range of messages to include in results.
-     * @param int    $oldest Start of time range of messages to include in results.
-     * @param int    $inclusive Include messages with latest or oldest timestamp in results.
-     * @param int    $unreads Include unread_count_display in the output?
+     * 
      * @param array $options
      * @example
      * <pre>
@@ -165,11 +161,7 @@ class Channel extends SlackMethod implements SlackChannel
      * The number of (non-deactivated) members in each channel is also returned.
      *
      * @see https://api.slack.com/methods/channels.list
-     *
-     * @param string $cursor
-     * @param bool $exclude_archived Exclude archived channels from the list
-     * @param bool $exclude_members Exclude the members collection from each channel
-     * @param int $limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.     *
+
      * @param array $options
      *
      * @example

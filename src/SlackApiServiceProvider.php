@@ -49,8 +49,8 @@ class SlackApiServiceProvider extends ServiceProvider
 
         foreach ($this->methods as $method) {
 
-            $contract = "Wgmv\SlackApi\Contracts\Slack{$method}";
-            $class = "Wgmv\SlackApi\Methods\{$method}";
+            $contract = "Wgmv\SlackApi\Contracts\Slack".$method;
+            $class = "Wgmv\SlackApi\Methods\".$method";
             $shortcut = "slack.".snake_case($method);
 
 
