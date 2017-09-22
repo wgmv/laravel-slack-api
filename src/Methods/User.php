@@ -3,10 +3,15 @@
 namespace Wgmv\SlackApi\Methods;
 
 use Wgmv\SlackApi\Contracts\SlackUser;
+use Wgmv\SlackApi\Traits\IdFinder;
 
 class User extends SlackMethod implements SlackUser
 {
+    use IdFinder;
+
     protected $methodsGroup = 'users.';
+
+    protected $use_id_finder = false;
 
     /**
      * This method lets you find out information about a user's presence.
@@ -18,6 +23,8 @@ class User extends SlackMethod implements SlackUser
      */
     public function getPresence($user)
     {
+        $user = $this->use_id_finder ? $this->getUserId($user) : $user;
+
         return $this->method('getPresence', compact('user'));
     }
 
@@ -30,6 +37,8 @@ class User extends SlackMethod implements SlackUser
      */
     public function info($user)
     {
+        $user = $this->use_id_finder ? $this->getUserId($user) : $user;
+
         return $this->method('info', compact('user'));
     }
 

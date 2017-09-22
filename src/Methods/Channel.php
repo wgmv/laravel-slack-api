@@ -3,10 +3,14 @@
 namespace Wgmv\SlackApi\Methods;
 
 use Wgmv\SlackApi\Contracts\SlackChannel;
+use Wgmv\SlackApi\Traits\IdFinder;
 
 class Channel extends SlackMethod implements SlackChannel
 {
+    use IdFinder;
+
     protected $methodsGroup = 'channels.';
+    protected $use_id_finder = false;
 
     /**
      * This method archives a channel.
@@ -17,6 +21,7 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function archive($channel)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
         return $this->method('archive', compact('channel'));
     }
 
@@ -64,6 +69,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function history($channel, $options = [])
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('history', array_merge(compact('channel'), $options));
     }
 
@@ -86,6 +93,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function info($channel, $options = [])
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('info', array_merge(compact('channel'), $options));
     }
 
@@ -101,6 +110,9 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function invite($channel, $user)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+        $user = $this->use_id_finder ? $this->getUserId($user) : $user;
+
         return $this->method('invite', compact('channel', 'user'));
     }
 
@@ -138,6 +150,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function kick($channel, $user)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('kick', compact('channel', 'user'));
     }
 
@@ -152,6 +166,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function leave($channel)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('leave', compact('channel'));
     }
 
@@ -192,6 +208,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function mark($channel, $ts)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('mark', compact('channel', 'ts'));
     }
 
@@ -218,6 +236,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function rename($channel, $name, $options = [])
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('rename', array_merge(compact('channel', 'name'), $options));
     }
 
@@ -233,6 +253,8 @@ class Channel extends SlackMethod implements SlackChannel
 	 */
 	public function replies($channel, $thread_ts)
 	{
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
 		return $this->method('replies', compact('channel', 'thread_ts'));
 	}
 
@@ -248,6 +270,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function setPurpose($channel, $purpose)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('setPurpose', compact('channel', 'purpose'));
     }
 
@@ -263,6 +287,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function setTopic($channel, $topic)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('setTopic', compact('channel', 'topic'));
     }
 
@@ -277,6 +303,8 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function unarchive($channel)
     {
+        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
+
         return $this->method('unarchive', compact('channel'));
     }
 
