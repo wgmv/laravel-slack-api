@@ -54,17 +54,29 @@ class File extends SlackMethod implements SlackFile
     }
 
     /**
-     * Alias to lists.
+     * Enables a file for public/external sharing.
      *
-     * @param array $options
+     * @param string $file F1234567890
      *
      * @return array
      */
-    public function all($options = [])
+    public function sharedPublicURL($file)
     {
-        return $this->lists($options);
+        return $this->method('revokePublicURL', $file);
     }
 
+    /**
+     * Revokes public/external sharing access for a file
+     *
+     * @param string $file F1234567890
+     *
+     * @return array
+     */
+    public function revokePublicURL($file)
+    {
+        return $this->method('revokePublicURL', $file);
+    }
+    
     /**
      * This method allows you to create or upload an existing file.
      *
