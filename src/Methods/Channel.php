@@ -3,25 +3,18 @@
 namespace Wgmv\SlackApi\Methods;
 
 use Wgmv\SlackApi\Contracts\SlackChannel;
-use Wgmv\SlackApi\Traits\IdFinder;
 
 class Channel extends SlackMethod implements SlackChannel
 {
-    use IdFinder;
-
     protected $methodsGroup = 'channels.';
-    protected $use_id_finder = false;
 
     /**
      * This method archives a channel.
-     *
-     * @param string $channel Channel to archive
      *
      * @return array
      */
     public function archive($channel)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
         return $this->method('archive', compact('channel'));
     }
 
@@ -51,8 +44,6 @@ class Channel extends SlackMethod implements SlackChannel
      * and then continue paging using the instructions below.
      * @see https://api.slack.com/methods/channels.history
      *
-     * @param string $channel Channel to fetch history for.
-     * 
      * @param array $options
      * @example
      * <pre>
@@ -69,8 +60,6 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function history($channel, $options = [])
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('history', array_merge(compact('channel'), $options));
     }
 
@@ -79,7 +68,6 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.info
      *
-     * @param string $channel Channel to get info on
      * @param array $options
      *
      * @example
@@ -93,8 +81,6 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function info($channel, $options = [])
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('info', array_merge(compact('channel'), $options));
     }
 
@@ -103,16 +89,12 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.invite
      *
-     * @param string $channel
      * @param string $user
      *
      * @return array
      */
     public function invite($channel, $user)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-        $user = $this->use_id_finder ? $this->getUserId($user) : $user;
-
         return $this->method('invite', compact('channel', 'user'));
     }
 
@@ -143,15 +125,12 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.kick
      *
-     * @param string $channel
      * @param string $user
      *
      * @return array
      */
     public function kick($channel, $user)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('kick', compact('channel', 'user'));
     }
 
@@ -160,14 +139,10 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.leave
      *
-     * @param string $channel
-     *
      * @return array
      */
     public function leave($channel)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('leave', compact('channel'));
     }
 
@@ -201,15 +176,12 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.mark
      *
-     * @param string     $channel Channel to set reading cursor in.
      * @param string|int $ts      Timestamp of the most recently seen message.
      *
      * @return array
      */
     public function mark($channel, $ts)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('mark', compact('channel', 'ts'));
     }
 
@@ -220,8 +192,6 @@ class Channel extends SlackMethod implements SlackChannel
      * created the channel. Others will receive a "not_authorized" error.
      *
      * @see https://api.slack.com/methods/channels.rename
-     *
-     * @param string $channel Channel to rename
      *
      * @param  string $name New name for channel
      * @param array $options
@@ -236,8 +206,6 @@ class Channel extends SlackMethod implements SlackChannel
      */
     public function rename($channel, $name, $options = [])
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('rename', array_merge(compact('channel', 'name'), $options));
     }
 
@@ -246,15 +214,12 @@ class Channel extends SlackMethod implements SlackChannel
 	 *
 	 * @see https://api.slack.com/methods/channels.replies
 	 *
-	 * @param string $channel Channel to fetch thread from
 	 * @param string|int $thread_ts Unique identifier of a thread's parent message
 	 *
 	 * @return array
 	 */
 	public function replies($channel, $thread_ts)
 	{
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
 		return $this->method('replies', compact('channel', 'thread_ts'));
 	}
 
@@ -263,15 +228,12 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.setPurpose
      *
-     * @param string $channel Channel to set the purpose of
      * @param string $purpose The new purpose
      *
      * @return array
      */
     public function setPurpose($channel, $purpose)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('setPurpose', compact('channel', 'purpose'));
     }
 
@@ -280,15 +242,12 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.setTopic
      *
-     * @param string $channel
      * @param string $topic
      *
      * @return array
      */
     public function setTopic($channel, $topic)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('setTopic', compact('channel', 'topic'));
     }
 
@@ -297,14 +256,10 @@ class Channel extends SlackMethod implements SlackChannel
      *
      * @see https://api.slack.com/methods/channels.unarchive
      *
-     * @param string $channel Channel to unarchive
-     *
      * @return array
      */
     public function unarchive($channel)
     {
-        $channel = $this->use_id_finder ? $this->getChannelId($channel) : $channel;
-
         return $this->method('unarchive', compact('channel'));
     }
 
