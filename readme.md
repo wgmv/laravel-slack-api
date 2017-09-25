@@ -1,5 +1,12 @@
 ## Laravel 5 and Lumen - Slack API
 
+[![Latest Stable Version](https://poser.pugx.org/wgmv/laravel-slack-api/version)](https://packagist.org/packages/wgmv/laravel-slack-api)
+[![Total Downloads](https://poser.pugx.org/wgmv/laravel-slack-api/downloads)](https://packagist.org/packages/wgmv/laravel-slack-api)
+[![Latest Unstable Version](https://poser.pugx.org/wgmv/laravel-slack-api/v/unstable)](//packagist.org/packages/wgmv/laravel-slack-api)
+[![License](https://poser.pugx.org/wgmv/laravel-slack-api/license)](https://packagist.org/packages/wgmv/laravel-slack-api)
+
+[![StyleCI](https://styleci.io/repos/102903970/shield?branch=master)](https://styleci.io/repos/102903970)
+
 This package provides a simple way to use the [Slack API](https://api.slack.com).
 
 The package is a fork from https://github.com/Vluzrmos/laravel-slack-api The original package is not maintained and I made several changes that possibly make this version incompatible to the original.
@@ -12,10 +19,6 @@ The package is a fork from https://github.com/Vluzrmos/laravel-slack-api The ori
 * updated slack api options on a couple of methods
 * fixed minor bugs
 
-<!---
-[![Latest Stable Version](https://poser.pugx.org/Wgmv/slack-api/v/stable.svg)](https://packagist.org/packages/Wgmv/slack-api) [![Total Downloads](https://poser.pugx.org/Wgmv/slack-api/downloads.svg)](https://packagist.org/packages/Wgmv/slack-api) [![Latest Unstable Version](https://poser.pugx.org/Wgmv/slack-api/v/unstable.svg)](https://packagist.org/packages/Wgmv/slack-api) [![License](https://poser.pugx.org/Wgmv/slack-api/license.svg)](https://packagist.org/packages/Wgmv/slack-api)
--->
-
 ## Installation 
 
 `composer require wgmv/laravel-slack-api`
@@ -25,15 +28,12 @@ The package is a fork from https://github.com/Vluzrmos/laravel-slack-api The ori
 The package has autodiscovery enabled. (A laravel 5.5 feature)
 
 ```php
-<?php
-
 [
     'providers' => [
         Wgmv\SlackApi\SlackApiServiceProvider::class,
     ]
 ]
 
-?>
 ```
 
 ## Configuration
@@ -45,7 +45,6 @@ https://api.slack.com/custom-integrations/legacy-tokens
 Configure your slack team token in <code>config/services.php</code> 
 
 ```php 
-<?php
 
 [
     //...,
@@ -54,7 +53,6 @@ Configure your slack team token in <code>config/services.php</code>
     ]
 ]
 
-?>
 ```
 
 
@@ -65,29 +63,21 @@ I have not tested the lumen installation! Documentation from the original packag
 Add the following line on `bootstrap/app.php`:
 
 ```php
-<?php
-
 // $app->register('App\Providers\AppServiceProvider'); (by default that comes commented)
 $app->register('Wgmv\SlackApi\SlackApiServiceProvider');
 
-?>
 ```
 
 If you want to use facades, add this lines on <code>bootstrap/app.php</code>
 
 ```php
-<?php
-
 class_alias('Wgmv\SlackApi\Facades\SlackApi', 'SlackApi');
 //... and others
-
-?>
 ```
 
 Otherwise, just use the singleton shortcuts:
 
 ```php
-<?php
 /** @var \Wgmv\SlackApi\Contracts\SlackApi $slackapi */
 $slackapi     = app('slack.api');
 
@@ -95,14 +85,11 @@ $slackapi     = app('slack.api');
 $slackchannel = app('slack.channel');
 
 etc
-?>
 ```
 
 ## Example Usage
 
 ```php
-<?php
-
 //Lists all users on your team
 SlackUser::lists(); 
 
@@ -126,8 +113,6 @@ slack()->post('chat.postMessage', [...]);
 //Autoload a Slack Method
 slack('Chat')->message([...]);
 slack('Team')->info();
-
-?>
 ```
 
 ## All Injectable Contracts:
@@ -142,8 +127,6 @@ Allows you to do generic requests to the api with the following http verbs:
 And is also possible load a SlackMethod contract:
 
 ```php
-<?php 
-
 /** @var SlackChannel $channel **/
 $channel = $slack->load('Channel');
 $channel->lists();
@@ -156,7 +139,6 @@ $chat->message('D98979F78', 'Hello my friend!');
 $admin = $slack('UserAdmin'); //Minimal syntax (invokable)
 $admin->invite('jhon.doe@example.com'); 
 
-?>
 ```
 -->
 
