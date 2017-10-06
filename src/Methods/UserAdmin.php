@@ -9,7 +9,10 @@ class UserAdmin extends SlackMethod implements SlackUserAdmin
     protected $methodsGroup = 'users.admin.';
 
     /**
-     * Invite a new user for a team.
+     * Invite a new user for a team. This is an undocumented feature and may change in the future
+     *
+     * @see https://github.com/ErikKalkoken/slackApiDoc/blob/master/users.admin.invite.md
+     *
      * @param string $email email of the new user
      * @param array  $options ['first_name' => 'John', 'last_name' => 'Doe', 'channels' => 'ch1,ch2,ch3 ...']
      *
@@ -19,7 +22,6 @@ class UserAdmin extends SlackMethod implements SlackUserAdmin
     {
         return $this->method('invite', array_merge([
             'email' => $email,
-            '_attempts' => 1,
         ], $options));
     }
 

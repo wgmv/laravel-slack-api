@@ -19,15 +19,16 @@ class SlackApiServiceProvider extends ServiceProvider
      */
     protected $methods = [
         'Channel',
-        'Group',
         'Chat',
-        'InstantMessage',
-        'Search',
+        'Conversation',
         'File',
-        'User',
-        'Team',
-        'Star',
+        'Group',
+        'InstantMessage',
         'RealTimeMessage',
+        'Search',
+        'Star',
+        'Team',
+        'User',
         'UserAdmin',
     ];
 
