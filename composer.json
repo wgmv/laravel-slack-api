@@ -47,6 +47,7 @@
               "SlackApi": "Wgmv\\SlackApi\\Facades\\SlackApi",
               "SlackChannel": "Wgmv\\SlackApi\\Facades\\SlackChannel",
               "SlackChat": "Wgmv\\SlackApi\\Facades\\SlackChat",
+              "SlackConversation": "Wgmv\\SlackApi\\Facades\\SlackConversation",
               "SlackGroup": "Wgmv\\SlackApi\\Facades\\SlackGroup",
               "SlackFile": "Wgmv\\SlackApi\\Facades\\SlackFile",
               "SlackSearch" : "Wgmv\\SlackApi\\Facades\\SlackSearch",
