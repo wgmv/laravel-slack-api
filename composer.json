@@ -1,7 +1,7 @@
 {
     "name": "wgmv/laravel-slack-api",
     "description": "Wrapper for Slack.com WEB API. Based on code from Vagner do Carmo.",
-    "license": "DBAD",
+    "license": "MIT",
     "keywords":["Laravel", "Lumen", "Slack"],
     "authors": [
         {
