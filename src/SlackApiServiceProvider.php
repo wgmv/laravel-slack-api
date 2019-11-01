@@ -2,8 +2,8 @@
 
 namespace Wgmv\SlackApi;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class SlackApiServiceProvider extends ServiceProvider
 {
@@ -16,6 +16,7 @@ class SlackApiServiceProvider extends ServiceProvider
 
     /**
      * Methods to register.
+     *
      * @var array
      */
     protected $methods = [
@@ -50,10 +51,9 @@ class SlackApiServiceProvider extends ServiceProvider
         $this->app->alias('Wgmv\SlackApi\Contracts\SlackApi', 'slack.api');
 
         foreach ($this->methods as $method) {
-
             $contract = "Wgmv\SlackApi\Contracts\Slack".$method;
             $class = "Wgmv\SlackApi\Methods\\".$method;
-            $shortcut = "slack.".Str::snake($method);
+            $shortcut = 'slack.'.Str::snake($method);
 
             $this->app->singleton($contract, function () use ($class) {
                 return new $class($this->app['slack.api']);
@@ -61,7 +61,6 @@ class SlackApiServiceProvider extends ServiceProvider
 
             $this->app->alias($contract, $shortcut);
         }
-
     }
 
     /**
@@ -74,9 +73,9 @@ class SlackApiServiceProvider extends ServiceProvider
         $shortcuts[] = 'slack.api';
 
         foreach ($this->methods as $method) {
-            $shortcuts[] = $shortcut = "slack.".Str::snake($method);
+            $shortcuts[] = $shortcut = 'slack.'.Str::snake($method);
         }
+
         return $shortcuts;
     }
-
 }
