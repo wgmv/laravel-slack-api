@@ -3,6 +3,7 @@
 namespace Wgmv\SlackApi;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Wgmv\SlackApi\Contracts\SlackApi as Contract;
 
@@ -25,13 +26,13 @@ class SlackApi implements Contract
     /**
      * Url to slack.com, by default will use https://slack.com/api.
      *
-     * @var String
+     * @var string
      */
     private $url = 'https://slack.com/api';
 
     /**
      * @param Client|null $client
-     * @param String|null $token
+     * @param string|null $token
      */
     public function __construct(Client $client = null, $token = null)
     {
@@ -130,17 +131,17 @@ class SlackApi implements Contract
      */
     public function load($method)
     {
-        if (str_contains($method, '.')) {
+        if (Str::contains($method, '.')) {
             return app($method);
         }
 
-        $contract = __NAMESPACE__.'\\Contracts\\Slack'.studly_case($method);
+        $contract = __NAMESPACE__.'\\Contracts\\Slack'.Str::studly($method);
 
         if (class_exists($contract)) {
             return app($contract);
         }
 
-        return app('slack.'.snake_case($method));
+        return app('slack.'.Str::snake($method));
     }
 
     /**
@@ -168,7 +169,7 @@ class SlackApi implements Contract
     /**
      * Configures the Guzzle Client.
      *
-     * @param \GuzzleHttp\Client|Callback|null $client
+     * @param \GuzzleHttp\Client|callback|null $client
      */
     public function setClient($client = null)
     {
@@ -187,8 +188,9 @@ class SlackApi implements Contract
 
     /**
      * Performs an HTTP Request.
-     * @param string $verb HTTP Verb
-     * @param string $url Url to the request
+     *
+     * @param string $verb       HTTP Verb
+     * @param string $url        Url to the request
      * @param array  $parameters parameters to send
      *
      * @return array
@@ -206,7 +208,7 @@ class SlackApi implements Contract
             $response = $this->getHttpClient()->$verb($url, $parameters);
         }
 
-        /** @var  $contents */
+        /** @var $contents */
         $contents = $this->responseToJson($response);
 
         return $contents;
@@ -214,6 +216,7 @@ class SlackApi implements Contract
 
     /**
      * @param \GuzzleHttp\Psr7\Response|\GuzzleHttp\Message\Response $response
+     *
      * @return array
      */
     protected function responseToJson($response)
@@ -231,7 +234,7 @@ class SlackApi implements Contract
     protected function mergeParameters($parameters = [])
     {
         $options['query'] = [
-            't' => time(),
+            't'     => time(),
             'token' => $this->getToken(),
         ];
 
@@ -263,7 +266,7 @@ class SlackApi implements Contract
      */
     protected function getUrl($method = null)
     {
-        return str_finish($this->url, '/').$method;
+        return Str::finish($this->url, '/').$method;
     }
 
     /**
